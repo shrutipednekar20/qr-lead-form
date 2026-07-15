@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Started</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 450px;
+            padding: 40px 30px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            height: 4px;
+            width: 100%;
+            background-color: #eef2f5;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 50%;
+            background: linear-gradient(90deg, #4f46e5, #06b6d4);
+            transition: width 0.4s ease;
+        }
+
+        /* Form Steps Styling */
+        .form-step {
+            display: none;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Typography */
+        h2 {
+            font-size: 24px;
+            color: #1f2937;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        p.subtitle {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 28px;
+        }
+
+        /* Input Fields */
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        label .required {
+            color: #ef4444;
+            margin-left: 2px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 15px;
+            border: 1.5px solid #e5e7eb;
+            border-radius: 8px;
+            outline: none;
+            background-color: #f9fafb;
+            transition: all 0.2s ease;
+        }
+
+        input:focus {
+            border-color: #4f46e5;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+        }
+
+        /* Buttons */
+        .btn-container {
+            margin-top: 32px;
+            display: flex;
+            gap: 12px;
+        }
+
+        button {
+            flex: 1;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn-primary {
+            background-color: #111827;
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background-color: #1f2937;
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #4b5563;
+            border: 1px solid #e5e7eb;
+            max-width: 100px;
+        }
+
+        .btn-secondary:hover {
+            background-color: #f9fafb;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #ffffff;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Success Message */
+        .success-screen {
+            display: none;
+            text-align: center;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .success-icon {
+            width: 64px;
+            height: 64px;
+            background-color: #ecfdf5;
+            color: #10b981;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin: 0 auto 20px auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container" id="formCard">
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- PAGE 1: EMAIL ADDRESS -->
+    <div class="form-step active" id="step1">
+        <h2>Welcome</h2>
+        <p class="subtitle">Please provide your email to get started.</p>
+        
+        <div class="input-group">
+            <label for="email">Email Address <span class="required">*</span></label>
+            <input type="email" id="email" placeholder="you@example.com" required>
+        </div>
+
+        <div class="btn-container">
+            <button class="btn-primary" id="btnNext" onclick="submitStep1()">
+                <span id="btnNextText">Next &rarr;</span>
+                <span class="spinner" id="spinner1"></span>
+            </button>
+        </div>
+    </div>
+
+    <!-- PAGE 2: USER DETAILS -->
+    <div class="form-step" id="step2">
+        <h2>A little more about you</h2>
+        <p class="subtitle">Help us customize your experience.</p>
+
+        <div class="input-group">
+            <label for="fullName">Full Name <span class="required">*</span></label>
+            <input type="text" id="fullName" placeholder="John Doe" required>
+        </div>
+
+        <div class="input-group">
+            <label for="contact">Contact No. <span class="required">*</span></label>
+            <input type="tel" id="contact" placeholder="+1 (555) 000-0000" required>
+        </div>
+
+        <div class="input-group">
+            <label for="company">Company Name <span class="required">*</span></label>
+            <input type="text" id="company" placeholder="Acme Corp" required>
+        </div>
+
+        <div class="btn-container">
+            <button class="btn-secondary" onclick="prevStep()">&larr; Back</button>
+            <button class="btn-primary" id="btnSubmit" onclick="submitStep2()">
+                <span id="btnSubmitText">Submit</span>
+                <span class="spinner" id="spinner2"></span>
+            </button>
+        </div>
+    </div>
+
+    <!-- SUCCESS SCREEN -->
+    <div class="success-screen" id="successScreen">
+        <div class="success-icon">✓</div>
+        <h2>Thank You!</h2>
+        <p class="subtitle">Your details have been successfully submitted.</p>
+    </div>
+</div>
+
+<script>
+    // Points dynamically to the server hosting this file
+    const API_BASE_URL = '/api'; 
+    
+    let userId = null; // Stored when Step 1 is saved
+
+    function validateEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    // STEP 1: Save Email & Move to Step 2
+    async function submitStep1() {
+        const emailInput = document.getElementById('email');
+        const email = emailInput.value.trim();
+        
+        if (!email || !validateEmail(email)) {
+            alert('Please enter a valid email address.');
+            emailInput.focus();
+            return;
+        }
+
+        // Show Loading State
+        document.getElementById('btnNextText').style.display = 'none';
+        document.getElementById('spinner1').style.display = 'inline-block';
+
+        try {
+            // Send email immediately to the database
+            const response = await fetch(`${API_BASE_URL}/save-email`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                userId = data.userId; // Save the reference ID returned from the DB to update the same record later
+                
+                // Transition to Step 2
+                document.getElementById('step1').classList.remove('active');
+                document.getElementById('step2').classList.add('active');
+                document.getElementById('progressFill').style.width = '100%';
+            } else {
+                alert(data.message || 'Something went wrong. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error saving email:', error);
+            alert('Unable to connect to the server. Please try again later.');
+        } finally {
+            // Reset Button State
+            document.getElementById('btnNextText').style.display = 'inline-block';
+            document.getElementById('spinner1').style.display = 'none';
+        }
+    }
+
+    // STEP 2: Save Remaining Fields
+    async function submitStep2() {
+        const name = document.getElementById('fullName').value.trim();
+        const contact = document.getElementById('contact').value.trim();
+        const company = document.getElementById('company').value.trim();
+
+        if (!name || !contact || !company) {
+            alert('Please fill out all fields.');
+            return;
+        }
+
+        // Show Loading State
+        document.getElementById('btnSubmitText').style.display = 'none';
+        document.getElementById('spinner2').style.display = 'inline-block';
+
+        try {
+            // Update the existing user record with details
+            const response = await fetch(`${API_BASE_URL}/save-details`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId, name, contact, company })
+            });
+
+            if (response.ok) {
+                // Show Success Message
+                document.getElementById('step2').classList.remove('active');
+                document.getElementById('successScreen').style.display = 'block';
+            } else {
+                const data = await response.json();
+                alert(data.message || 'Something went wrong.');
+            }
+        } catch (error) {
+            console.error('Error saving details:', error);
+            alert('Unable to connect to server.');
+        } finally {
+            document.getElementById('btnSubmitText').style.display = 'inline-block';
+            document.getElementById('spinner2').style.display = 'none';
+        }
+    }
+
+    function prevStep() {
+        document.getElementById('step2').classList.remove('active');
+        document.getElementById('step1').classList.add('active');
+        document.getElementById('progressFill').style.width = '50%';
+    }
+</script>
+</body>
+</html>
